@@ -28,19 +28,20 @@ export default function AccueilPage() {
         boxSizing: "border-box",
       }}
     >
-      {/* Effet de cadre photo / polaroid */}
+      {/* Cadre photo avec animation d'apparition */}
       <div
         style={{
           backgroundColor: "#FFFFFF",
           padding: "16px 16px 40px 16px",
           boxShadow: "4px 6px 15px rgba(0,0,0,0.1)",
-          transform: "rotate(-2deg)", // Légèrement de travers
+          transform: "rotate(-2deg)", 
           marginBottom: "40px",
           position: "relative",
           border: "1px solid #E0D4C3",
+          animation: "apparaitre 1s ease-out forwards",
         }}
       >
-        {/* Petit bout de scotch en haut */}
+        {/* Petit bout de scotch */}
         <div
           style={{
             position: "absolute",
@@ -83,7 +84,7 @@ export default function AccueilPage() {
         </p>
       </div>
 
-      {/* Fleche dessinée / texte manuscrit */}
+      {/* Texte manuscrit avec animation d'écriture */}
       <p
         style={{
           fontFamily: "var(--font-caveat), cursive",
@@ -92,16 +93,18 @@ export default function AccueilPage() {
           marginBottom: "24px",
           textAlign: "center",
           transform: "rotate(1deg)",
+          animation: "ecrire 1.5s ease-out 0.5s forwards",
+          opacity: 0,
         }}
       >
         Il y a quelque chose à découvrir...
       </p>
 
-      {/* Bouton style "tampon" / encre */}
+      {/* Bouton style tampon avec effet de "pulsation" */}
       <button
         onClick={ouvrir}
         style={{
-          backgroundColor: "#C0392B", // Rouge tampon
+          backgroundColor: "#C0392B",
           color: "#FFFFFF",
           border: "2px solid #C0392B",
           padding: "16px 48px",
@@ -117,19 +120,42 @@ export default function AccueilPage() {
           alignItems: "center",
           gap: "10px",
           transform: "rotate(-1deg)",
-        }}
-        onMouseOver={(e) => {
-          e.currentTarget.style.transform = "rotate(-1deg) scale(1.02)";
-          e.currentTarget.style.boxShadow = "6px 6px 0px rgba(192, 57, 43, 0.4)";
-        }}
-        onMouseOut={(e) => {
-          e.currentTarget.style.transform = "rotate(-1deg) scale(1)";
-          e.currentTarget.style.boxShadow = "4px 4px 0px rgba(192, 57, 43, 0.4)";
+          animation: "pulse 2s infinite, apparaitre 1s ease-out 1s forwards",
+          opacity: 0,
         }}
       >
         Ouvrir la lettre
         <Mail size={18} strokeWidth={2} />
       </button>
+
+      {/* Animations CSS */}
+      <style jsx global>{`
+        @keyframes apparaitre {
+          from {
+            opacity: 0;
+            transform: translateY(20px) rotate(-2deg);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) rotate(-2deg);
+          }
+        }
+        @keyframes ecrire {
+          from {
+            opacity: 0;
+            transform: translateX(-10px) rotate(1deg);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0) rotate(1deg);
+          }
+        }
+        @keyframes pulse {
+          0% { box-shadow: 4px 4px 0px rgba(192, 57, 43, 0.4); }
+          50% { box-shadow: 6px 6px 0px rgba(192, 57, 43, 0.6); }
+          100% { box-shadow: 4px 4px 0px rgba(192, 57, 43, 0.4); }
+        }
+      `}</style>
     </main>
   );
-        }
+            }
