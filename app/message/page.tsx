@@ -1,10 +1,45 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Home, Book, Mail } from "lucide-react";
 
+// On met les paragraphes dans un tableau pour pouvoir les animer un par un
+const paragraphes = [
+  { text: "Excellence, mon amour, ma Syntyche,", bold: true },
+  { text: "En ce jour si spécial pour nous deux, je ressens le besoin de t'écrire ces quelques mots, non seulement pour célébrer notre amour, mais aussi pour raviver cette flamme qui brûle en toi et te rappeler combien tu es précieuse à mes yeux." },
+  { text: "J'ai commencé par Syntyche, parce que c'est à travers ce prénom que j'ai découvert un cœur exceptionnel, un cœur que le temps, la tendresse et l'amour m'ont permis de transformer en mon Honey, cette douceur devenue, peu à peu, l'un des plus beaux cadeaux de ma vie." },
+  { text: "Aujourd'hui, j'ai tant de choses à te dire que les mots me semblent presque insuffisants. Nous célébrons notre première année d'existence, notre première année d'amour, une année qui n'a pas toujours été évidente, une année faite de défis, d'apprentissages, de patience et de compréhension. Pourtant, grâce à notre implication, à nos efforts, à notre attention mutuelle et à cette volonté de continuer à avancer ensemble, nous sommes toujours là." },
+  { text: "Et regarde-nous aujourd'hui : nous avons donné naissance à quelque chose de beau, de rare et de précieux. Nous avons construit notre petit univers, notre histoire, notre Synior, cette merveilleuse complicité qui fait vibrer nos cœurs et donne à notre amour une identité qui n'appartient qu'à nous." },
+  { text: "Mon cœur bat aujourd'hui encore plus fort pour toi qu'au premier jour. Et si je devais t'offrir le plus beau des cadeaux en cet anniversaire, je ne choisirais ni un objet ni quelque chose qui pourrait perdre sa valeur avec le temps. Je choisirais de t'offrir, une fois de plus, mon cœur, avec la promesse sincère de continuer à t'aimer, à te respecter, à te soutenir et à prendre soin de nous." },
+  { text: "Je ne te promets pas une histoire sans difficultés, car l'amour véritable n'est pas l'absence d'épreuves. Je te promets plutôt de faire de mon mieux pour que, même dans les moments difficiles, tu n'oublies jamais la place que tu occupes dans ma vie. Je veux apprendre encore à te comprendre, grandir à tes côtés, célébrer tes victoires, sécher tes larmes et être, autant que possible, cette présence rassurante auprès de laquelle ton cœur peut trouver la paix." },
+  { text: "N'oublie jamais cette chose importante que tu m'avais demandée à la genèse de notre amour : te rendre heureuse." },
+  { text: "Je n'ai pas oublié cette demande, mon amour. Je sais qu'elle n'est pas simple, car le bonheur se construit chaque jour, à travers les gestes, les paroles, les attentions et les sacrifices que l'on consent par amour. Mais je veux m'y efforcer sincèrement, non pas seulement pour te prouver que je t'aime, mais aussi parce que ton sourire compte pour moi, parce que ton bonheur m'importe et parce que je veux que notre histoire soit un endroit où nous nous sentons tous les deux aimés, compris et en sécurité." },
+  { text: "Ma chérie, my Syn'love, si le premier chapitre de notre histoire nous a appris à nous découvrir et à nous aimer, alors j'espère que les prochains nous apprendront à nous choisir encore et encore, à nous rapprocher davantage et à bâtir quelque chose de plus grand que nous." },
+  { text: "Je veux continuer à écrire cette histoire avec toi, une page après l'autre, un jour après l'autre, avec ses rires, ses rêves, ses défis et ses belles surprises. Je veux que, lorsque nous regarderons en arrière, nous puissions sourire en nous disant que nous avons eu raison de croire en nous, de nous donner une chance et de préserver cet amour qui nous unit." },
+  { text: "En ce premier anniversaire, je ne célèbre pas seulement le temps que nous avons passé ensemble. Je célèbre la femme que tu es, la place que tu occupes dans mon cœur, tout ce que nous avons déjà traversé et tout ce que nous pouvons encore accomplir main dans la main." },
+  { text: "Joyeux premier anniversaire à nous, mon amour ! ❤️" },
+  { text: "Merci d'être ma Syntyche, mon Honey, ma Syn'love, ma Dulcinée et cette personne qui donne à mon cœur des raisons supplémentaires de battre." },
+  { text: "Si je pouvais recommencer cette histoire, avec ses incertitudes, ses défis et ses moments de bonheur, je voudrais encore avoir la chance de te rencontrer, de te découvrir et de tomber amoureux de toi." },
+  { text: "Et si aujourd'hui je devais renouveler une seule promesse, ce serait celle-ci : tant que l'amour nous donnera la force d'avancer, je continuerai à faire ma part pour que notre histoire soit belle et que ton cœur ne doute jamais de la sincérité du mien." },
+  { text: "Meu amor, I love you. ❤️" },
+  { text: "Avec tout l'amour que mon cœur peut contenir,", bold: true },
+];
+
 export default function MessagePage() {
   const router = useRouter();
+  const [visibleCount, setVisibleCount] = useState(1);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Effet pour révéler les paragraphes un par un
+  useEffect(() => {
+    if (visibleCount < paragraphes.length) {
+      const timer = setTimeout(() => {
+        setVisibleCount((prev) => prev + 1);
+      }, 800); // 800ms entre chaque paragraphe (tu peux réduire si c'est trop lent)
+      return () => clearTimeout(timer);
+    }
+  }, [visibleCount]);
 
   return (
     <main
@@ -70,7 +105,7 @@ export default function MessagePage() {
         <div style={{ width: "34px" }} />
       </header>
 
-      {/* Contenu de la lettre style papier déchiré */}
+      {/* Contenu de la lettre */}
       <article
         style={{
           flex: 1,
@@ -81,7 +116,7 @@ export default function MessagePage() {
           boxSizing: "border-box",
           backgroundColor: "#FFFDF8",
           boxShadow: "2px 4px 12px rgba(0,0,0,0.08)",
-          borderLeft: "4px solid #C0392B", // Marge rouge de carnet
+          borderLeft: "4px solid #C0392B",
           position: "relative",
         }}
       >
@@ -128,7 +163,9 @@ export default function MessagePage() {
           Un an d'amour, une promesse pour toujours… ❤️
         </p>
 
+        {/* Le conteneur des paragraphes animés */}
         <div
+          ref={containerRef}
           style={{
             fontSize: "0.95rem",
             lineHeight: 1.8,
@@ -137,94 +174,42 @@ export default function MessagePage() {
             textAlign: "justify",
           }}
         >
-          <p style={{ margin: "0 0 16px", fontWeight: "bold" }}>
-            Excellence, mon amour, ma Syntyche,
-          </p>
+          {paragraphes.map((para, index) => {
+            // On affiche le paragraphe seulement si son index est inférieur au compteur
+            if (index >= visibleCount) return null;
+            return (
+              <p
+                key={index}
+                style={{
+                  margin: "0 0 16px",
+                  fontWeight: para.bold ? "bold" : "normal",
+                  animation: "slideUp 0.6s ease-out forwards",
+                }}
+              >
+                {para.text}
+              </p>
+            );
+          })}
+        </div>
 
-          <p style={{ margin: "0 0 16px" }}>
-            En ce jour si spécial pour nous deux, je ressens le besoin de t'écrire ces quelques mots, non seulement pour célébrer notre amour, mais aussi pour raviver cette flamme qui brûle en toi et te rappeler combien tu es précieuse à mes yeux.
-          </p>
-
-          <p style={{ margin: "0 0 16px" }}>
-            J'ai commencé par Syntyche, parce que c'est à travers ce prénom que j'ai découvert un cœur exceptionnel, un cœur que le temps, la tendresse et l'amour m'ont permis de transformer en mon Honey, cette douceur devenue, peu à peu, l'un des plus beaux cadeaux de ma vie.
-          </p>
-
-          <p style={{ margin: "0 0 16px" }}>
-            Aujourd'hui, j'ai tant de choses à te dire que les mots me semblent presque insuffisants. Nous célébrons notre première année d'existence, notre première année d'amour, une année qui n'a pas toujours été évidente, une année faite de défis, d'apprentissages, de patience et de compréhension. Pourtant, grâce à notre implication, à nos efforts, à notre attention mutuelle et à cette volonté de continuer à avancer ensemble, nous sommes toujours là.
-          </p>
-
-          <p style={{ margin: "0 0 16px" }}>
-            Et regarde-nous aujourd'hui : nous avons donné naissance à quelque chose de beau, de rare et de précieux. Nous avons construit notre petit univers, notre histoire, notre Synior, cette merveilleuse complicité qui fait vibrer nos cœurs et donne à notre amour une identité qui n'appartient qu'à nous.
-          </p>
-
-          <p style={{ margin: "0 0 16px" }}>
-            Mon cœur bat aujourd'hui encore plus fort pour toi qu'au premier jour. Et si je devais t'offrir le plus beau des cadeaux en cet anniversaire, je ne choisirais ni un objet ni quelque chose qui pourrait perdre sa valeur avec le temps. Je choisirais de t'offrir, une fois de plus, mon cœur, avec la promesse sincère de continuer à t'aimer, à te respecter, à te soutenir et à prendre soin de nous.
-          </p>
-
-          <p style={{ margin: "0 0 16px" }}>
-            Je ne te promets pas une histoire sans difficultés, car l'amour véritable n'est pas l'absence d'épreuves. Je te promets plutôt de faire de mon mieux pour que, même dans les moments difficiles, tu n'oublies jamais la place que tu occupes dans ma vie. Je veux apprendre encore à te comprendre, grandir à tes côtés, célébrer tes victoires, sécher tes larmes et être, autant que possible, cette présence rassurante auprès de laquelle ton cœur peut trouver la paix.
-          </p>
-
-          <p style={{ margin: "0 0 16px" }}>
-            N'oublie jamais cette chose importante que tu m'avais demandée à la genèse de notre amour : te rendre heureuse.
-          </p>
-
-          <p style={{ margin: "0 0 16px" }}>
-            Je n'ai pas oublié cette demande, mon amour. Je sais qu'elle n'est pas simple, car le bonheur se construit chaque jour, à travers les gestes, les paroles, les attentions et les sacrifices que l'on consent par amour. Mais je veux m'y efforcer sincèrement, non pas seulement pour te prouver que je t'aime, mais aussi parce que ton sourire compte pour moi, parce que ton bonheur m'importe et parce que je veux que notre histoire soit un endroit où nous nous sentons tous les deux aimés, compris et en sécurité.
-          </p>
-
-          <p style={{ margin: "0 0 16px" }}>
-            Ma chérie, my Syn'love, si le premier chapitre de notre histoire nous a appris à nous découvrir et à nous aimer, alors j'espère que les prochains nous apprendront à nous choisir encore et encore, à nous rapprocher davantage et à bâtir quelque chose de plus grand que nous.
-          </p>
-
-          <p style={{ margin: "0 0 16px" }}>
-            Je veux continuer à écrire cette histoire avec toi, une page après l'autre, un jour après l'autre, avec ses rires, ses rêves, ses défis et ses belles surprises. Je veux que, lorsque nous regarderons en arrière, nous puissions sourire en nous disant que nous avons eu raison de croire en nous, de nous donner une chance et de préserver cet amour qui nous unit.
-          </p>
-
-          <p style={{ margin: "0 0 16px" }}>
-            En ce premier anniversaire, je ne célèbre pas seulement le temps que nous avons passé ensemble. Je célèbre la femme que tu es, la place que tu occupes dans mon cœur, tout ce que nous avons déjà traversé et tout ce que nous pouvons encore accomplir main dans la main.
-          </p>
-
-          <p style={{ margin: "0 0 16px" }}>
-            Joyeux premier anniversaire à nous, mon amour ! ❤️
-          </p>
-
-          <p style={{ margin: "0 0 16px" }}>
-            Merci d'être ma Syntyche, mon Honey, ma Syn'love, ma Dulcinée et cette personne qui donne à mon cœur des raisons supplémentaires de battre.
-          </p>
-
-          <p style={{ margin: "0 0 16px" }}>
-            Si je pouvais recommencer cette histoire, avec ses incertitudes, ses défis et ses moments de bonheur, je voudrais encore avoir la chance de te rencontrer, de te découvrir et de tomber amoureux de toi.
-          </p>
-
-          <p style={{ margin: "0 0 16px" }}>
-            Et si aujourd'hui je devais renouveler une seule promesse, ce serait celle-ci : tant que l'amour nous donnera la force d'avancer, je continuerai à faire ma part pour que notre histoire soit belle et que ton cœur ne doute jamais de la sincérité du mien.
-          </p>
-
-          <p style={{ margin: "0 0 16px" }}>
-            Meu amor, I love you. ❤️
-          </p>
-
-          <p style={{ margin: "32px 0 8px", fontWeight: "bold" }}>
-            Avec tout l'amour que mon cœur peut contenir,
-          </p>
-
-          {/* Signature style manuscrite */}
+        {/* Signature (apparaît seulement quand tout le texte est affiché) */}
+        {visibleCount >= paragraphes.length && (
           <p
             style={{
               fontFamily: "var(--font-caveat), cursive",
               fontSize: "2rem",
               color: "#C0392B",
-              margin: 0,
+              margin: "32px 0 0 0",
               textAlign: "right",
               lineHeight: 1.2,
               transform: "rotate(-2deg)",
+              animation: "slideUp 0.8s ease-out forwards",
             }}
           >
             Ton Mel,<br />
             Junior OMANGA
           </p>
-        </div>
+        )}
       </article>
 
       {/* Navigation bas */}
@@ -261,6 +246,19 @@ export default function MessagePage() {
           onClick={() => router.push("/message")}
         />
       </nav>
+
+      <style jsx global>{`
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </main>
   );
 }
