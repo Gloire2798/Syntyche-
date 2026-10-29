@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Heart, Scissors } from "lucide-react";
+import { Mail } from "lucide-react";
 
 export default function AccueilPage() {
   const router = useRouter();
@@ -128,8 +128,8 @@ export default function AccueilPage() {
         }}
       >
         Ouvrir la lettre
-        <Scissors size={18} strokeWidth={2} />
+        <Mail size={18} strokeWidth={2} />
       </button>
     </main>
   );
-            }
+        }
